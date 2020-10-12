@@ -21,33 +21,33 @@ LET'S DIRECTLY JUMP TO THE STEPS INVOLVED:
 
   1. Create a VPC, which we will be using it later, the command for the same is:
        
-        resource "aws_vpc" "naitik2_vpc" {
+        resource "aws_vpc" "ankush2_vpc" {
                 cidr_block = "192.168.0.0/16"
                 instance_tenancy = "default"
                 enable_dns_hostnames = true
                 tags = {
-                  Name = "naitik2_vpc"
+                  Name = "ankush2_vpc"
                 }
               }
               
   2. Now we will create subnet which we will be using for launching instance later, the command for the same is:
   
-         resource "aws_subnet" "naitik2_subnet" {
-                vpc_id = "${aws_vpc.naitik2_vpc.id}"
+         resource "aws_subnet" "ankush2_subnet" {
+                vpc_id = "${aws_vpc.ankush2_vpc.id}"
                 cidr_block = "192.168.0.0/24"
                 availability_zone = "ap-south-1a"
                 map_public_ip_on_launch = "true"
                 tags = {
-                  Name = "naitik2_subnet"
+                  Name = "ankush2_subnet"
                 }
               }
               
   3. I will be using and making a custom security group with all of the required permissions, which I will be using to launch my instance later, the code for the same:
    
-          resource "aws_security_group" "naitik2_sg" {
+          resource "aws_security_group" "ankush2_sg" {
 
-                name        = "naitik2_sg"
-                vpc_id      = "${aws_vpc.naitik2_vpc.id}"
+                name        = "ankush2_sg"
+                vpc_id      = "${aws_vpc.ankush2_vpc.id}"
 
 
                 ingress {
@@ -94,53 +94,53 @@ LET'S DIRECTLY JUMP TO THE STEPS INVOLVED:
 
                 tags = {
 
-                  Name = "naitik2_sg"
+                  Name = "ankush2_sg"
                 }
               }
               
    4. In this step, we will be creating an EFS account and configure it:
       
-            resource "aws_efs_file_system" "naitik2_efs" {
-                creation_token = "naitik2_efs"
+            resource "aws_efs_file_system" "ankush2_efs" {
+                creation_token = "ankush2_efs"
                 tags = {
-                  Name = "naitik2_efs"
+                  Name = "ankush2_efs"
                 }
               }
 
 
-              resource "aws_efs_mount_target" "naitik2_efs_mount" {
-                file_system_id = "${aws_efs_file_system.naitik2_efs.id}"
-                subnet_id = "${aws_subnet.naitik2_subnet.id}"
-                security_groups = [aws_security_group.naitik2_sg.id]
+              resource "aws_efs_mount_target" "ankush2_efs_mount" {
+                file_system_id = "${aws_efs_file_system.ankush2_efs.id}"
+                subnet_id = "${aws_subnet.ankush2_subnet.id}"
+                security_groups = [aws_security_group.ankush2_sg.id]
               }
               
    5. In this step, we will create a Gateway and a Routing table, the command for the same is:
    
-            resource "aws_internet_gateway" "naitik2_gw" {
-                vpc_id = "${aws_vpc.naitik2_vpc.id}"
+            resource "aws_internet_gateway" "ankush2_gw" {
+                vpc_id = "${aws_vpc.ankush2_vpc.id}"
                 tags = {
-                  Name = "naitik2_gw"
+                  Name = "ankush2_gw"
                 }
               }
 
 
-              resource "aws_route_table" "naitik2_rt" {
-                vpc_id = "${aws_vpc.naitik2_vpc.id}"
+              resource "aws_route_table" "ankush2_rt" {
+                vpc_id = "${aws_vpc.ankush2_vpc.id}"
 
                 route {
                   cidr_block = "0.0.0.0/0"
-                  gateway_id = "${aws_internet_gateway.naitik2_gw.id}"
+                  gateway_id = "${aws_internet_gateway.ankush2_gw.id}"
                 }
 
                 tags = {
-                  Name = "naitik2_rt"
+                  Name = "ankush2_rt"
                 }
               }
 
 
-              resource "aws_route_table_association" "naitik2_rta" {
-                subnet_id = "${aws_subnet.naitik2_subnet.id}"
-                route_table_id = "${aws_route_table.naitik2_rt.id}"
+              resource "aws_route_table_association" "ankush2_rta" {
+                subnet_id = "${aws_subnet.ankush2_subnet.id}"
+                route_table_id = "${aws_route_table.ankush2_rt.id}"
               }
               
    6. Now the time has come to finally launch our instance. 
@@ -148,15 +148,15 @@ LET'S DIRECTLY JUMP TO THE STEPS INVOLVED:
            resource "aws_instance" "test_ins" {
                         ami             =  "ami-052c08d70def0ac62"
                         instance_type   =  "t2.micro"
-                        key_name        =  "naitik2_key"
-                        subnet_id     = "${aws_subnet.naitik2_subnet.id}"
-                        security_groups = ["${aws_security_group.naitik2_sg.id}"]
+                        key_name        =  "ankush2_key"
+                        subnet_id     = "${aws_subnet.ankush2_subnet.id}"
+                        security_groups = ["${aws_security_group.ankush2_sg.id}"]
 
 
                        connection {
                           type     = "ssh"
                           user     = "ec2-user"
-                          private_key = file("C:/Users/Naitik/Downloads/naitik2_key.pem")
+                          private_key = file("C:/Users/Naitik/Downloads/ankush2_key.pem")
                           host     = aws_instance.test_ins.public_ip
                         }
 
@@ -179,18 +179,18 @@ LET'S DIRECTLY JUMP TO THE STEPS INVOLVED:
   7. Now, as our instance is launched, we will mount our EFS volume to /var/www/html folder, where all of our codes is stored, this will ensure that there is no data loss in case the instance is accidentally deleted or if they crash.
   
                 resource "null_resource" "mount"  {
-                depends_on = [aws_efs_mount_target.naitik2_efs_mount]
+                depends_on = [aws_efs_mount_target.ankush2_efs_mount]
                 connection {
                   type     = "ssh"
                   user     = "ec2-user"
-                  private_key = file("C:/Users/Naitik/Downloads/naitik2_key.pem")
+                  private_key = file("C:/Users/ankush/Downloads/ankush2_key.pem")
                   host     = aws_instance.test_ins.public_ip
                 }
               provisioner "remote-exec" {
                   inline = [
                     "sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${aws_efs_file_system.naitik2_efs.id}.efs.ap-south-1.amazonaws.com:/ /var/www/html",
                     "sudo rm -rf /var/www/html/*",
-                    "sudo git clone https://github.com/naitik2314/Cloud1.git /var/www/html/",
+                    "sudo git clone https://github.com/ANKUSH-JPG/task2_HMC.git /var/www/html/",
                     "sudo sed -i 's/url/${aws_cloudfront_distribution.my_front.domain_name}/g' /var/www/html/index.html"
                   ]
                 }
@@ -199,11 +199,11 @@ LET'S DIRECTLY JUMP TO THE STEPS INVOLVED:
  8. Now, we create an S3 bucket on AWS. The code snippet for doing the same is as follows:
  
              resource "aws_s3_bucket" "sp_bucket" {
-        bucket = "naitik2"
+        bucket = "ankush2"
         acl    = "private"
 
         tags = {
-          Name        = "naitik2314"
+          Name        = "ankush2314"
         }
         }
         locals {s3_origin_id = "myS3Origin"
@@ -214,7 +214,7 @@ LET'S DIRECTLY JUMP TO THE STEPS INVOLVED:
         resource "aws_s3_bucket_object" "object" {
           bucket = "${aws_s3_bucket.sp_bucket.id}"
           key    = "test_pic"
-          source = "C:/Users/Naitik/Pictures/picture1.jpg"
+          source = "C:/Users/ankush/Pictures/picture1.jpg"
           acl    = "public-read"
         }
         
