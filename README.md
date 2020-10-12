@@ -282,11 +282,55 @@ LET'S DIRECTLY JUMP TO THE STEPS INVOLVED:
         }
         
         
-# OUTPUT:
+# CLI OUTPUT(OUTPUT FROM CMD):
 
 1. head to your command prompt and run this command:
     
        terraform init
    
  ![1](https://user-images.githubusercontent.com/51692515/95707303-c83c4780-0c76-11eb-9ead-0d235480e868.png)
+ 
+ 2. Run the command:
+  
+        terraform apply
+        
+![2](https://user-images.githubusercontent.com/51692515/95707407-17827800-0c77-11eb-9520-596a6c72fd56.png)
+
+![3](https://user-images.githubusercontent.com/51692515/95707409-18b3a500-0c77-11eb-95dd-bd09f22621dc.png)
+
+![4](https://user-images.githubusercontent.com/51692515/95707410-194c3b80-0c77-11eb-97b9-b52586e8d3a4.png)
+
+![5](https://user-images.githubusercontent.com/51692515/95707413-19e4d200-0c77-11eb-8ea1-73cbf213af05.png)
+
+![6](https://user-images.githubusercontent.com/51692515/95707414-1a7d6880-0c77-11eb-8e4f-c530f7f5ed55.png)
+
+![7](https://user-images.githubusercontent.com/51692515/95707415-1bae9580-0c77-11eb-9537-907659e435c1.png)
+
+
+# GUI OUTPUT(OUTPUT FROM THE CONSOLE):
+
+![8](https://user-images.githubusercontent.com/51692515/95707642-b7400600-0c77-11eb-83d5-aa13e7656394.png)
+
+![9](https://user-images.githubusercontent.com/51692515/95707647-b909c980-0c77-11eb-93e9-4536cf5a7d32.png)
+
+![10](https://user-images.githubusercontent.com/51692515/95707649-b909c980-0c77-11eb-9b35-0552c19b0a72.png)
+
+![11](https://user-images.githubusercontent.com/51692515/95707650-b9a26000-0c77-11eb-9502-44b4b4c5e64e.png)
+
+![12](https://user-images.githubusercontent.com/51692515/95707651-ba3af680-0c77-11eb-9627-2366bd4fd7f5.png)
+
+![13](https://user-images.githubusercontent.com/51692515/95707653-bad38d00-0c77-11eb-91d6-6252dc5a1bf3.png)
+
+![14](https://user-images.githubusercontent.com/51692515/95707654-bb6c2380-0c77-11eb-9e63-c6942b22dba8.png)
+
+![15](https://user-images.githubusercontent.com/51692515/95707655-bc04ba00-0c77-11eb-8293-4fe065493a29.png)
+
+![16](https://user-images.githubusercontent.com/51692515/95707656-bc9d5080-0c77-11eb-8a9f-3bc767fdcd51.png)
+
+![17](https://user-images.githubusercontent.com/51692515/95707659-bd35e700-0c77-11eb-9c55-e342ce26681e.png)
+
+![18](https://user-images.githubusercontent.com/51692515/95707660-bdce7d80-0c77-11eb-8070-7b551305e99f.png)
+
+  
+  
 
